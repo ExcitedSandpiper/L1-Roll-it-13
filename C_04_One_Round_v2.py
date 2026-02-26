@@ -18,6 +18,12 @@ def initial_points(which_player):
 
    return total, double
 
+def make_statement(statement, decoration):
+    """Adds emoji / additional characters to the start and end of the heading """
+
+    ends = decoration * 3
+    print(f"\n{ends} {statement} {ends}")
+
 # Main starts here...
 
 # Roll the dice for the user and note if they got a double
@@ -74,4 +80,31 @@ while player_1_points < 13 and player_2_points < 13:
     print(f"{second}: Rolled a {player_2_roll} - has {player_2_points} points")
     print(f"{first}: {player_1_points}  | {second} {player_2_points}")
 
-print("end of round")
+# end of round
+
+# associate player points with either the user or the computer
+user_points = player_1_points
+comp_Points = player_2_points
+
+# switch the user and computer points if the computer went first
+if first == "Computer":
+    user_points, comp_points = comp_points, user_points
+
+# work out who won...
+if user_points > comp_points:
+    winner = "User"
+else:
+    winner = "Computer"
+
+round_feedback = f"The {winner} won."
+
+# double user points if eligible
+if winner == "User" and double_user == "yes":
+    user_points = user_points * 2
+
+
+# output round results
+make_statement("Round Results", "=")
+print(f"User Points: {user_points} | Computer Points: {comp_points}")
+print(round_feedback)
+print()
